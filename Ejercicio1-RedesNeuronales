@@ -1,0 +1,11 @@
+Definir el tipo de red neuronal y describir cada una de sus partes:
+
+ESTRUCTURA DE LA RED NEURONAL:
+-La estructura de la red neuronal tendria una entrada que incluiria la dimension que seria de 20 x 20 un canal para cada jugador, la representacion del tablero seria 1 si la casilla la tiene
+ el  jugador actual y -1 si la casilla tiene una ficha del oponente, 0 si la casilla esta vacia.
+CAPAS CONVOLUCIONALES
+-Las capas convolucionales nos ayudarian a capturar los patrones claves, como grupos de fichas alineadas o bloqueos del oponente 
+
+-La capa de salida puede ser un mapa de acciones 20 x 20 con valores para cada casillas 
+
+-
