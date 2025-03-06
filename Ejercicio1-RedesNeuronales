@@ -1,11 +1,91 @@
-Definir el tipo de red neuronal y describir cada una de sus partes:
+DEFINIR EL TIPO DE RED NEURONAL Y DESCRIBIR CADA UNA DE SUS PARTES:
 
 ESTRUCTURA DE LA RED NEURONAL:
 -La estructura de la red neuronal tendria una entrada que incluiria la dimension que seria de 20 x 20 un canal para cada jugador, la representacion del tablero seria 1 si la casilla la tiene
  el  jugador actual y -1 si la casilla tiene una ficha del oponente, 0 si la casilla esta vacia.
-CAPAS CONVOLUCIONALES
+
+CAPAS CONVOLUCIONALES:
 -Las capas convolucionales nos ayudarian a capturar los patrones claves, como grupos de fichas alineadas o bloqueos del oponente 
 
--La capa de salida puede ser un mapa de acciones 20 x 20 con valores para cada casillas 
+CAPA DE SALIDA:
+-La capa de salida puede ser un mapa de acciones 20 x 20 con valores para cada casilla, con 2 salidas, una para la probabilidad
+de cada moviento y otra que seria el valir de que tan bueno es el estado actual
 
--
+ENTRENAMIENTO DE LA RED:
+-Se puede entrenar usando un aprendizaje supervisado con partidas de jugadores expertos, otra 
+opcion puede ser el aprendizaje por refuerzo, permitiendonos que la red aprenda estrategias
+optimas y bloquee movimientos del oponente.
+
+------------- 0 -------------------------- 0 ------------------------------ 0 ----------------------------0----------------------
+
+DEFINIR LOS PATRONES A UTILIZAR:
+
+PATRONES DE VICTORIA (5 en linea):
+-Las cinco fichas consecutivas en cualquier direccion
+-Horizontales
+-Verticales
+-Diagonal 
+
+------EJEMPLO DE UN FILA-----
+O X X X X X O ---> Si la red detecta este patron debe jugar para ganar inmediatamente
+
+------EJEMPLO DE BLOQUEO-----
+O O O O X ---> Cuatro fichas del oponente seguidas de un bloqueo, si el jugador no bloquea
+el oponente ganara en el siguiente turno
+
+PATRONES DE CRECIMIENTO:
+-Si hay 3 fichas y los espacios de los lados vacios, nos permitiria crear futuras jugadas para extender
+la secuencia, por lo tanto se tendria que priorizar estas posiciones para atacar
+
+------EJEMPLO DE FUTURO ATAQUE-------
+ O X X X O ----> Podriamos darle seguimiento, hacia la derecha o izquierda
+
+PATRONES DE CONTROL DEL CENTRO
+-En un tablero grande como 20x20, es clave controlar el centro, nuestro modelo debe favorecer
+movimientos en esta zona para tener mas opciones de expansion
+
+------------- 0 -------------------------- 0 ------------------------------ 0 ----------------------------0----------------------
+
+DEFINIR LA FUNCION DE ACTIVACION NECESARIA PARA ESTE PROBLEMA
+
+CAPAS CONVOLUCIONALES:
+-La razon es que nos permite capturar patrones en filas, columnas y diagonales ademas de mantener
+la red eficiente y rapida
+
+CAPA DE SALIDA / SIGMOIDE 
+-Si el modelo elije una jugada, se asigna una probabilidad a cada casilla del tablero, si
+el modelo evalua la posicion de tablero da un valor entre 0 y 1 indicando que tan buen es la jugada
+
+------------- 0 -------------------------- 0 ------------------------------ 0 ----------------------------0----------------------
+
+DEFINIR EL NUMERO MAXIMO DE ENTRADAS
+
+-Si el tablero tiene 20x20 = 400 casillas, pero cada casilla puede estar en 3 estados, vacia
+con ficha de jugador acutal, con ficha del oponente, para representar estos estados en la red
+neuronal tendriamos 2 opciones
+
+1.- Representacion de 2 lineas, en donde cada casilla se representa con 2 valores en canales
+diferentes, en la linea 1, se marcan las casillas ocupadas por el jugador actual (1 si hay ficha 0 si no hay)
+y en la linea 2, se marcan las casillas ocupadas por el oponente (1 si hay ficha 0  si no hay)
+
+------------- 0 -------------------------- 0 ------------------------------ 0 ----------------------------0----------------------
+
+QUE VALORES A LA SALIDA DE LA RED SE PODRIAN ESPERAR
+-La salida a la red neuronal depende del tipo de decision que queremos que tome el modelo, hay 2 posibles
+enfoques para definir los valores de salida
+
+1.-Salida como probabilidad de movimiento, representado que el modelo predice la mejor jugada posible en el tablero,
+usando una capa de salida se puede generar una distribucion de probabilidad sobre las 400 casillas del tablero, tendria
+tambien un formato de salida, con un vector de 400 valores en el rango 0, 1 donde cada valor indica la
+probabilidad de elegir esa casilla para jugar, ademas de que la red seleccionara la casilla con la probabilidad mas 
+alta como su jugada.
+
+SALIDAS COMO EVALUACION DE POSICION
+-Esta salida nos representa que tan buena es una posicion en el tablero y se usa una capa de salisa con sigmoide
+para da un valor entre -1 y 1.... donde 1 es la posicion ganadora, o la posicion neutral y -1 la posicion desfavorable
+
+Entonces si queremos que nuestro modeloelija una jugada directamente usamos los 400 valores, si queremos
+que el modelo evalue la posicion usamos sigmoide que seria 1 el valor unico
+
+
+
