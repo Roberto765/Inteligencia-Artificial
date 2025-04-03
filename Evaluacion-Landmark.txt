@@ -1,0 +1,35 @@
+-DEFINIR EL TIPO DE RED NEURONAL Y DESCRIBIR CADA UNA DE SUS PARTES:
+
+La red neuronal mas adecuada, seria una red neuronal convolucional (CNN) o una
+red neuronal densa (Perceptrón Multicapa).
+Para este modelo lo mejor seria utilizar una red neuronal densa, ya que es mas ligera y rápida de entrenar, esta red únicamente calcula las coordenadas basándose en los landmarks y a partir de eso identifica la expresión que tiene el rostro.
+
+La estructura básica de una red densa:
+1.-Capa de entrada: Recibe las coordenadas de los landmarks
+2.-Capas ocultas: Con neuronas y funciones de activación no lineales
+3.-Capa de salida: Produce la emoción identificada.
+
+-DEFINIR LOS PATRONES A UTILIZAR:
+Los landmarks de mediapipe proporcionan puntos clave del rostro (ojos, cejas, boca) para clasificar las emociones, se pueden usar patrones como:
+1.-Distancias entre puntos clave, como la apertura de la boca, la elevación de las cejas etc..
+2.-Ángulos formados por puntos, como por ejemplo la inclinación de la cabeza
+3.-Expresiones faciales comunes asociadas a emociones.
+
+-DEFINIR LA FUNCION DE ACTIVACION:
+ReLU(Unidad lineal rectificada), es común en capas ocultas, ayuda a aprender relaciones no lineales.
+Softmax, para la capa de salida, ya que el modelo debe clasificar entre multiples emociones
+
+-DEFINIR EL NUMERO MAXIMO DE ENTRADAS:
+Mediapipe genera 468 landmarks en el rostro, cada uno con coordenadas (x,y,z), si usamos todos , las entradas tendrían 468 x 3 = 1404 valores, pero esto se puede reducir si solo tomamos los puntos mas importantes.
+
+-DEFINIR QUE VALORES DE SALIDA DE LA RED SE PODRIAN ESPERAR:
+Las posibles salidas serian la clasificación de emociones:
+0 = Neutro
+1 = Felicidad
+2 = Tristeza
+3 = Enojo
+4 = Sorpresa
+5 = Miedo
+
+-CUALES SON LOS VALORES MAXIMOS QUE PUEDE TENER EL BIAS
+Esta limitado según la función de activación, si se usa relu puede ser cualquier numero negativo, si usamos softmax, el bias suele estar en el rango (-1, 1)
