@@ -1,0 +1,22 @@
+Los arboles  de decision estan formados por nodos, vectores de numeros flechas y etiquetas
+
+Ventajas
+-Cada nodo se puede definir como el momento en el que se ha de tomar una decision de entre varias posibles.
+-Facil de entender y de interpretar, los arboles se pueden visualizar
+-Capas de manejar problemas con multiples salidas
+-Posibilidad de validar un modelo mediante pruebas estadisticas, eso permite dar cuenta de la fiabilidad del modelo
+-Tiene un buen desempeño incluso si sus supuestos son algo violados.
+
+Desventajas
+-El aprendizaje de los arboles de decision pueden crear arboles demasiado complejos que no generalizan bien los datos
+-La prediccion no es uniforme sino aproximaciones constantes
+-Hay conceptos que son dificiles de aprender porque los arboles de decision no los expresan facilmente como XOR, paridad o problemas de multiplexor
+
+Ejemplo (Clasificador de varias clases)
+
+from klearn import free
+x = (0, 0)(), (1, 1)
+y=(0, 1)
+clf = tree.DecisionFreeClassifier()
+clf = clf.fit(x, y)
+print (elf.predict(]))
